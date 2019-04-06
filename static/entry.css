@@ -1,0 +1,14 @@
+.entry {
+    text-align: center;
+}
+
+.entry h1 {
+    text-shadow: 1px 1px cyan;
+    color: darkcyan;
+    font-size: 4em;
+}
+
+.entry p {
+    margin: 3em 3em;
+    font-size: 2em;
+}

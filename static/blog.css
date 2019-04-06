@@ -1,0 +1,62 @@
+.content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    grid-auto-rows: 1fr;
+    grid-row-gap: 20px;
+    grid-column-gap: 20px;
+    margin: 5% 20%;
+    padding: 20px;
+    background-color: palegoldenrod;
+    box-shadow: inset 0 0 10px 5px #000000;
+}
+
+.content::before {
+    content: '';
+    width: 0;
+    padding-bottom: 100%;
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+}
+
+.content > *:first-child {
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+  }
+
+.entry {
+    background-color: rgb(116, 44, 44);
+    padding: 1% 5%;
+    text-decoration: none;
+    box-shadow: 10px 10px 5px rgba(116, 44, 44, 0.315);
+    transition: all ease-in-out 300ms;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.entry:hover {
+    box-shadow: 15px 15px 5px rgba(116, 44, 44, 0.2);
+    transform: translate(-5px, -5px) scale(1.05);
+}
+
+.blog-title {
+    text-align: center;
+    text-shadow: 1px 1px cyan;
+    color: darkcyan;
+    font-size: 4em;
+}
+
+.entry-title {
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 3em;
+    color: rgb(1, 1, 1);
+}
+
+.entry-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(1, 1, 1);
+}
+
+.no-posts {
+
+}

@@ -1,0 +1,55 @@
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+.post-form {
+
+}
+
+.post-form label {
+    display: table-caption;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.title-input {
+    width: 500px;
+    background-color: rgb(44, 40, 40);
+    color: goldenrod;
+    font-weight: bold;
+    font-size: .7em;
+}
+
+.body-input {
+    width: 500px;
+    height: 500px;
+    background-color: rgb(44, 40, 40);
+    color: goldenrod;
+    font-weight: bold;
+    font-size: .5em;
+    cursor: default;
+}
+
+.post-button {
+    background-color: goldenrod;
+    border-radius: 5px;
+    box-shadow: 0px 17px 10px -10px rgba(255,255,255,0.4);
+    transition: all ease-in-out 300ms;
+    cursor: pointer;
+    color: darkcyan;
+    border: none;
+    padding: 5px;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.post-button:hover {
+    box-shadow: 0px 37px 20px -20px rgba(194, 193, 193, 0.2);
+    transform: translate(0px, -10px) scale(1.1);
+}
+
+.error {
+
+}
+

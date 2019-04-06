@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link href="{{ url_for('static', filename='new_post.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <form class="post-form" method="POST" action="/newpost">
+            <label>Title
+                <input class="title-input" type="text" name="title">
+            </label>
+                <p class="error">{{title_error}}</p>
+            <label>Body
+                <textarea class="body-input" name="body"></textarea>
+            </label>
+                <p class="error">{{body_error}}</p>
+            <input class="post-button" type="submit" value="Create Post">
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link href="{{ url_for('static', filename='blog.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="blog-title">Build A Blog</h1>
+    <div class="content">
+        {% if blogs|length == 0 %}
+            <p class="no-posts"><a href="/newpost">No posts yet!</a></p>
+        {% else %}
+            {% for blog in blogs %}
+                <a class="entry" href="./blog?id={{blog.id}}">
+                        <h1 class="entry-title">
+                            {{blog.title}}
+                        </h1> 
+                        <span class="entry-body">{{blog.body}}</span>
+                </a>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
