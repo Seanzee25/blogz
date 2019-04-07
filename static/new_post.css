@@ -50,6 +50,9 @@
 }
 
 .error {
-
+    color: darkred;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-shadow: 1px 1px rgba(247, 247, 247, 0.199);
 }
 
