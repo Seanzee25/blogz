@@ -44,6 +44,13 @@ class User(db.Model):
         self.create_date = datetime.utcnow()
 
 
+@app.before_request
+def require_login():
+    allowed_route = ["login", "signup", "index"]
+    if request.endpoint not in allowed_route and 'email' not in session:
+        return redirect("/login")
+
+
 def get_users():
     return User.query.all()
 
@@ -62,6 +69,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and check_pw_hash(password, user.pw_hash):
             session["email"] = email
+            session["username"] = user.user_name
             return redirect("/")
         else:
             return render_template("login.html",
@@ -123,6 +131,8 @@ def signup():
                 and not password_verify_error and not email_error):
             db.session.add(User(username, email, password))
             db.session.commit()
+            session["email"] = email
+            session["username"] = username
             return redirect('/')
 
         return render_template("signup.html",
@@ -133,6 +143,13 @@ def signup():
                                email_error=email_error)
     else:
         return render_template("signup.html")
+
+
+@app.route('/logout')
+def logout():
+    del session["email"]
+    del session["username"]
+    return redirect("./")
 
 
 @app.route('/blog')
