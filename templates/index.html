@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <h1>Browse Users</h1>
+        </div>
+    </div>
+    <div class="row">
+        {% if users|length < 5 %}
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <ul class="list-group">
+                {% for i in range(users|length) %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ users[i].user_name }}
+                    <span class="badge badge-primary badge-pill">{{ users.posts|length }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-5"></div>
+        {% else %}
+        <div class="col-md-1"></div>
+        <div class="col-md-2">  
+            <ul class="list-group">
+                {% for i in range(0, users|length // 5) %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ users[i].user_name }}
+                    <span class="badge badge-primary badge-pill">{{ loop.index0 }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-2">
+            <ul class="list-group">
+                {% for i in range(users|length // 5, users|length // 5 * 2) %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ users[i].user_name }}
+                    <span class="badge badge-primary badge-pill">{{ loop.index0 }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-2">
+            <ul class="list-group">
+                {% for i in range(users|length // 5 * 2, users|length // 5 * 3) %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ users[i].user_name }}
+                    <span class="badge badge-primary badge-pill">{{ loop.index0 }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-2">
+            <ul class="list-group">
+                {% for i in range(users|length // 5 * 3, users|length // 5 * 4) %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ users[i].user_name }}
+                    <span class="badge badge-primary badge-pill">{{ loop.index0 }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-2">
+            <ul class="list-group">
+                {% for i in range(users|length // 5 * 4, users|length // 5 * 5) %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ users[i].user_name }}
+                    <span class="badge badge-primary badge-pill">{{ loop.index0 }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-1"></div>
+        {% endif %}
+    </div>
+{% endblock %}

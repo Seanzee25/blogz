@@ -1,9 +1,5 @@
 {% extends "base.html" %}
 
-{% block css %}
-<link href="{{ url_for('static', filename='new_post.css')}}" rel="stylesheet">
-{% endblock %}
-
 {% block content %}
     <div class="content">
         <form class="post-form" method="POST" action="/newpost">
