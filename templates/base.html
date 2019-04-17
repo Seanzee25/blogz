@@ -38,7 +38,7 @@
                     {% else %}
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fas fa-user-circle fa-fw"></i>{{session["username"]}}</a>
+                            <a class="nav-link" href="./blog?user_id={{session['id']}}"><i class="fas fa-user-circle fa-fw"></i>{{session["username"]}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./newpost"><i class="fas fa-plus-square fa-fw"></i>Create Post</a>

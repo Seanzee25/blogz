@@ -70,6 +70,7 @@ def login():
         if user and check_pw_hash(password, user.pw_hash):
             session["email"] = email
             session["username"] = user.user_name
+            session["id"] = user.id
             return redirect("/")
         else:
             return render_template("login.html",
@@ -129,11 +130,13 @@ def signup():
 
         if (not username_error and not password_error
                 and not password_verify_error and not email_error):
-            db.session.add(User(username, email, password))
+            user = User(username, email, password)
+            db.session.add(user)
             db.session.commit()
             session["email"] = email
             session["username"] = username
-            return redirect('/')
+            session["id"] = user.id
+            return redirect('/newpost')
 
         return render_template("signup.html",
                                username=username, email=email,
@@ -149,7 +152,8 @@ def signup():
 def logout():
     del session["email"]
     del session["username"]
-    return redirect("./")
+    del session["id"]
+    return redirect("./blog")
 
 
 @app.route('/blog')
