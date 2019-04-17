@@ -46,7 +46,7 @@ class User(db.Model):
 
 @app.before_request
 def require_login():
-    allowed_route = ["login", "signup", "index"]
+    allowed_route = ["login", "signup", "index", "displayAllEntries"]
     if request.endpoint not in allowed_route and 'email' not in session:
         return redirect("/login")
 
@@ -155,14 +155,18 @@ def logout():
 @app.route('/blog')
 def displayAllEntries():
     blog_id = request.args.get("id")
+    user_id = request.args.get("user_id")
 
-    if(blog_id is None):
+    if(user_id is not None):
+        user = User.query.get(user_id)
+        return render_template("singleUser.html", user=user, blogs=user.posts)
+    elif(blog_id is not None):
+        blog_entry = Blog.query.get(blog_id)
+        return render_template("entry.html", blog=blog_entry)
+    else:
         blogs = Blog.query.order_by(db.desc(Blog.pub_date)).all()
         return render_template("blog.html", blogs=blogs)
-    else:
-        blog_entry = Blog.query.filter_by(id=blog_id).first()
-        return render_template("entry.html", blog=blog_entry)
-
+        
 
 @app.route('/newpost', methods=["POST", "GET"])
 def createPost():
@@ -177,9 +181,13 @@ def createPost():
             title_error = "Please fill in the title"
         if(not body):
             body_error = "Please fill in the body"
+        if(len(body) > 500):
+            body_error = "Limit to 500 characters"
+        if(len(title) > 120):
+            title_error = "Limit to 120 characters"
         if(title_error or body_error):
             return render_template("newpost.html", title_error=title_error,
-                                   body_error=body_error)
+                                   body_error=body_error, title=title, body=body)
         else:
             user = User.query.filter_by(email=session["email"]).first()
             blog = Blog(title, body, user)
