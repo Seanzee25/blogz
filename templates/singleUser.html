@@ -34,15 +34,15 @@
     </div>
     <div class="row">
         <!-- USER POSTS -->
-        <div class="col-sm-1"></div>
+        <div class="col-lg-2"></div>
         {% for blog in blogs %}
-            {% if loop.index0 % 2 == 0 %}
-            <div class="col-sm-1"></div>
+            {% if loop.index0 % 4 == 0 %}
+            <div class="col-lg-2"></div>
         </div>
         <div class="row">
-            <div class="col-sm-1"></div>
+            <div class="col-lg-2"></div>
             {% endif %}
-            <div class="col-sm-5">
+            <div class="col-lg-2">
                 <a href="./blog?id={{blog.id}}" class="card text-white bg-success mb-3" style="max-width: 20rem; min-height: 15rem; max-height: 15rem; overflow: hidden;">
                     <div class="card-header justify-content-between d-flex align-items-center">
                         {{blog.title}}
@@ -54,6 +54,6 @@
                 </a>
             </div>
         {% endfor %}
-        <div class="col-sm-1"></div>
+        <div class="col-lg-2"></div>
     </div>
 {% endblock %}

@@ -2,19 +2,29 @@
 
 {% block content %}
 
-    <h1 class="blog-title">Build A Blog</h1>
-    <div class="content">
-        {% if blogs|length == 0 %}
-            <p class="no-posts"><a href="/newpost">No posts yet!</a></p>
-        {% else %}
-            {% for blog in blogs %}
-                <a class="entry" href="./blog?id={{blog.id}}">
-                        <h1 class="entry-title">
-                            {{blog.title}}
-                        </h1> 
-                        <span class="entry-body">{{blog.body}}</span>
+    <div class="row">
+        <!-- All Posts -->
+        <div class="col-lg-1"></div>
+        {% for blog in blogs %}
+            {% if loop.index0 % 4 == 0 %}
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2"></div>
+            {% endif %}
+            <div class="col-lg-2">
+                <a href="./blog?id={{blog.id}}" class="card text-white bg-success mb-3" style="min-width: 18rem; max-width: 20rem; min-height: 15rem; max-height: 15rem; overflow: hidden;">
+                    <div class="card-header justify-content-between d-flex align-items-center" style="min-height: 3rem; max-height: 3rem; overflow: hidden;">
+                        <span class="mr-5">{{blog.title}}</span>
+                        <span><i class="far fa-thumbs-up fa-fw"></i>placeholder</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" style="max-height: 6rem; overflow: hidden;">{{blog.body}}</p>
+                        <small>written by {{blog.user.user_name}}</small>
+                    </div>
                 </a>
-            {% endfor %}
-        {% endif %}
+            </div>
+        {% endfor %}
+        <div class="col-lg-2"></div>
     </div>
 {% endblock %}
