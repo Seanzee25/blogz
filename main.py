@@ -35,7 +35,7 @@ class User(db.Model):
     email = db.Column(db.String(120))
     pw_hash = db.Column(db.String(120))
     create_date = db.Column(db.DateTime)
-    posts = db.relationship('Blog', backref="owner")
+    posts = db.relationship('Blog', backref="user")
 
     def __init__(self, user_name, email, password):
         self.user_name = user_name
@@ -181,7 +181,8 @@ def createPost():
             return render_template("newpost.html", title_error=title_error,
                                    body_error=body_error)
         else:
-            blog = Blog(title, body)
+            user = User.query.filter_by(email=session["email"]).first()
+            blog = Blog(title, body, user)
             db.session.add(blog)
             db.session.commit()
             return redirect("./blog?id={0}".format(blog.id))

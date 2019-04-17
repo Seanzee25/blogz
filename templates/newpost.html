@@ -1,17 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="content">
-        <form class="post-form" method="POST" action="/newpost">
-            <label>Title
-                <input class="title-input" type="text" name="title">
-            </label>
-                <p class="error">{{title_error}}</p>
-            <label>Body
-                <textarea class="body-input" name="body"></textarea>
-            </label>
-                <p class="error">{{body_error}}</p>
-            <input class="post-button" type="submit" value="Create Post">
-        </form>
+    <div class="row">
+        <div class="col-sm-2 col-md-3"></div>
+        <div class="col-sm-8 col-md-6">
+            <form method="POST" action="/newpost" style="margin: 10%">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Enter title...">
+                    {% if title_error %}
+                    <small id="title-error" class="form-text text-danger">{{title_error}}</small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="body">Body</label>
+                    <textarea class="form-control" id="body" name="body" rows="8" placeholder="Add content..."></textarea>
+                    {% if body_error %}
+                    <small id="body-error" class="form-text text-danger">{{body_error}}</small>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary">Create Post</button>
+            </form>
+        </div>
+        <div class="col-sm-2 col-md-3"></div>
     </div>
 {% endblock %}
