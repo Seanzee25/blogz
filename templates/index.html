@@ -1,7 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="row">
+
+
+
+<div class="row mt-5">
+        <div class="col-xl-1"></div>
+        {% for user in users %}
+            {% if loop.index0 % 5 == 0 %}
+            <div class="col-xl-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-xl-1"></div>
+            {% endif %}
+            <div class="col-xl-2 mr-4">
+                <!-- <a href="./blog?id={{user.id}}" class="card text-white bg-success mb-3 ml-auto mr-auto" style="min-width: 16rem; max-width: 16rem; min-height: 15rem; max-height: 15rem; overflow: hidden;">
+                    <div class="card-header justify-content-between d-flex align-items-center">
+                        <div class="col-8 text-break">{{user.id}}</div>
+                        
+                        <div class="col-4"><i class="far fa-thumbs-up fa-fw"></i>{{user.posts|length}}</div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text text-break">{{user.id}}</p>
+                    </div>
+                </a> -->
+                <div class="list-group">
+                    <a href="./blog?user_id={{user.id}}" class="list-group-item list-group-item-action list-group-item-info mb-3 ml-auto mr-auto">
+                        <div class="justify-content-between d-flex align-items-center">
+                            <span>{{ user.user_name }}</span>
+                            <span>
+                                <span class="text-primary"><i class="far fa-newspaper fa-fw"></i>{{ user.posts|length }}</span>
+                                <span class="text-success"><i class="fas fa-thumbs-up fa-fw"></i>{{user.likes|length}}</span>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col-xl-1"></div>
+    </div>
+
+
+    <!-- <div class="row">
         <div class="col-sm-12 text-center">
             <h1>Browse Users</h1>
         </div>
@@ -86,5 +126,5 @@
         </div>
         <div class="col-md-1"></div>
         {% endif %}
-    </div>
+    </div> -->
 {% endblock %}

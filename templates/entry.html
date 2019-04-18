@@ -4,9 +4,20 @@
     <div class="jumbotron text-center">
         <h1 class="text-primary display-3">{{blog.title}}</h1>
         
-        <p class="lead">{{blog.body}}</p>
+        <p class="lead text-break">{{blog.body}}</p>
         <p class="text-right">written by <a href="./blog?user_id={{blog.user.id}}">{{blog.user.user_name}}</a> <br>
                              {{blog.pub_date.month ~ "/" ~ blog.pub_date.day ~ "/" ~ blog.pub_date.year}}
         </p>
+        
+        <p class="text-right text-success">
+            {% if liked %}
+            <a href="./like?blog_id={{blog.id}}&user_id={{session['id']}}&like=false">
+                <i class="fas fa-thumbs-up fa-fw text-success"></i>
+            </a>
+            {% else %}
+            <a href="./like?blog_id={{blog.id}}&user_id={{session['id']}}&like=true">
+                <i class="far fa-thumbs-up fa-fw text-primary"></i>
+            {% endif %}
+            </a>{{blog.likes|length}}</p>
     </div>
 {% endblock %}

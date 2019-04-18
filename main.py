@@ -19,6 +19,7 @@ class Blog(db.Model):
     body = db.Column(db.String(500))
     pub_date = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    likes = db.relationship('Likes', backref='blog')
 
     def __init__(self, title, body, user, pub_date=None):
         self.title = title
@@ -36,12 +37,26 @@ class User(db.Model):
     pw_hash = db.Column(db.String(120))
     create_date = db.Column(db.DateTime)
     posts = db.relationship('Blog', backref="user")
+    liked = db.relationship('Likes', backref='liked_by', foreign_keys="Likes.liked_by_id")
+    likes = db.relationship('Likes', backref='user', foreign_keys="Likes.user_id")
 
     def __init__(self, user_name, email, password):
         self.user_name = user_name
         self.email = email
         self.pw_hash = make_pw_hash(password)
         self.create_date = datetime.utcnow()
+
+
+class Likes(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    blog_id = db.Column(db.Integer, db.ForeignKey('blog.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    liked_by_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __init__(self, blog, user, liked_by):
+        self.blog = blog
+        self.user = user
+        self.liked_by = liked_by
 
 
 @app.before_request
@@ -166,11 +181,43 @@ def displayAllEntries():
         return render_template("singleUser.html", user=user, blogs=user.posts)
     elif(blog_id is not None):
         blog_entry = Blog.query.get(blog_id)
-        return render_template("entry.html", blog=blog_entry)
+        like = Likes.query.filter_by(blog_id=blog_id, liked_by_id=session["id"]).first()
+        liked = True if like else False
+        return render_template("entry.html", blog=blog_entry, liked=liked)
     else:
         blogs = Blog.query.order_by(db.desc(Blog.pub_date)).all()
         return render_template("blog.html", blogs=blogs)
-        
+
+
+@app.route('/like')
+def like():
+    blog_id = request.args.get("blog_id")
+    user_id = request.args.get("user_id")
+
+    blog = Blog.query.get(blog_id)
+    liked_by = User.query.get(user_id)
+    user = blog.user
+
+    if(request.args.get("like") == "true"):
+        blog_id = request.args.get("blog_id")
+        user_id = request.args.get("user_id")
+
+        blog = Blog.query.get(blog_id)
+        liked_by = User.query.get(user_id)
+        user = blog.user
+
+        if(blog.user.id != liked_by.id):
+            like = Likes(blog, user, liked_by)
+            db.session.add(like)
+            db.session.commit()
+        return redirect("./blog?id={0}".format(blog_id))
+    else:
+        like = Likes.query.filter_by(blog_id=blog_id, liked_by_id=user_id).first()
+        if like:
+            db.session.delete(like)
+            db.session.commit()
+        return redirect("./blog?id={0}".format(blog_id))
+
 
 @app.route('/newpost', methods=["POST", "GET"])
 def createPost():
@@ -188,7 +235,7 @@ def createPost():
         if(len(body) > 500):
             body_error = "Limit to 500 characters"
         if(len(title) > 20):
-            title_error = "Limit to 120 characters"
+            title_error = "Limit to 20 characters"
         if(title_error or body_error):
             return render_template("newpost.html", title_error=title_error,
                                    body_error=body_error, title=title, body=body)
