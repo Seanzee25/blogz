@@ -6,15 +6,17 @@
             <h1>Browse Users</h1>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-5">
         {% if users|length < 5 %}
         <div class="col-md-5"></div>
         <div class="col-md-2">
             <div class="list-group">
                 {% for i in range(users|length) %}
                     <a href="./blog?user_id={{users[i].id}}" class="list-group-item list-group-item-action list-group-item-info">
-                        {{ users[i].user_name }}
-                        <span class="badge badge-primary badge-pill">{{ users[i].posts|length }}</span>
+                        <div class="justify-content-between d-flex align-items-center">
+                            <span>{{ users[i].user_name }}</span>
+                            <span class="badge badge-primary badge-pill">{{ users[i].posts|length }}</span>
+                        </div>
                     </a>
                 {% endfor %}
                 </div>
@@ -26,8 +28,10 @@
             <div class="list-group">
                 {% for i in range(0, users|length // 5) %}
                 <a href="./blog?user_id={{users[i].id}}" class="list-group-item list-group-item-action list-group-item-info">
-                    {{ users[i].user_name }}
-                    <span class="badge badge-primary badge-pill">{{ users[i].posts|length }}</span>
+                    <div class="justify-content-between d-flex align-items-center">
+                        <span>{{ users[i].user_name }}</span>
+                        <span class="badge badge-primary badge-pill">{{ users[i].posts|length }}</span>
+                    </div>
                 </a>
                 {% endfor %}
             </div>
@@ -36,8 +40,10 @@
             <div class="list-group">
                 {% for i in range(users|length // 5, users|length // 5 * 2) %}
                 <a href="./blog?user_id={{users[i].id}}" class="list-group-item list-group-item-action list-group-item-info">
-                    {{ users[i].user_name }}
-                    <span class="badge badge-primary badge-pill">{{ users[i].posts|length }}</span>
+                    <div class="justify-content-between d-flex align-items-center">
+                        <span>{{ users[i].user_name }}</span>
+                        <span class="badge badge-primary badge-pill">{{ users[i].posts|length }}</span>
+                    </div>
                 </a>
                 {% endfor %}
             </div>
@@ -46,8 +52,10 @@
             <div class="list-group">
                 {% for i in range(users|length // 5 * 2, users|length // 5 * 3) %}
                 <a href="./blog?user_id={{users[i].id}}" class="list-group-item list-group-item-action list-group-item-info">
-                    {{ users[i].user_name }}
-                    <span class="badge badge-primary badge-pill">{{ users[i].posts|length }}</span>
+                    <div class="justify-content-between d-flex align-items-center">
+                        <span>{{ users[i].user_name }}</span>
+                        <span class="badge badge-primary badge-pill">{{ users[i].posts|length }}</span>
+                    </div>
                 </a>
                 {% endfor %}
             </div>
@@ -56,8 +64,10 @@
             <div class="list-group">
                 {% for i in range(users|length // 5 * 3, users|length // 5 * 4) %}
                 <a href="./blog?user_id={{users[i].id}}" class="list-group-item list-group-item-action list-group-item-info">
-                    {{ users[i].user_name }}
-                    <span class="badge badge-primary badge-pill">{{ users[i].posts|length }}</span>
+                    <div class="justify-content-between d-flex align-items-center">
+                        <span>{{ users[i].user_name }}</span>
+                        <span class="badge badge-primary badge-pill">{{ users[i].posts|length }}</span>
+                    </div>
                 </a>
                 {% endfor %}
             </div>
@@ -66,8 +76,10 @@
             <div class="list-group">
                 {% for i in range(users|length // 5 * 4, users|length // 5 * 5) %}
                 <a href="./blog?user_id={{users[i].id}}" class="list-group-item list-group-item-action list-group-item-info">
-                    {{ users[i].user_name }}
-                    <span class="badge badge-primary badge-pill">{{ users[i].posts|length }}</span>
+                    <div class="justify-content-between d-flex align-items-center">
+                        <span>{{ users[i].user_name }}</span>
+                        <span class="badge badge-primary badge-pill">{{ users[i].posts|length }}</span>
+                    </div>
                 </a>
                 {% endfor %}
             </div>
